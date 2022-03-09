@@ -1,8 +1,3 @@
-console.log('javascript linked')
-// create the elements
-// add classes to the elements
-// append to page
-// add text to it 
 
 var containerEl = document.querySelector('container');
 // page title
@@ -22,20 +17,12 @@ podContainerEl.classList.add('py-5', 'px-5', 'text-center');
 podApiEl.appendChild(podContainerEl);
 // podContainerEl.textContent = 'image will go inside here';
 
-// pod
-var podEl = document.createElement('img');
-podEl.classList.add('picture', 'test2');
-podEl.src = 'https://via.placeholder.com/500';
-podEl.alt = "picture of day from NASA's API";
-podEl.title = 'change me later based on api title';
-podContainerEl.appendChild(podEl);
 
-// text div for pod details
-var podDescriptionContEl = document.createElement('div');
-podDescriptionContEl.classList.add('poddescriptioncontainer', 'test2');
-podContainerEl.appendChild(podDescriptionContEl);
-podDescriptionContEl.textContent = 'pod text';
 
+// picOfDayUrl = 'https://api.nasa.gov/planetary/apod?api_key=' + nasaAPI
+// // var podTitle = data.title
+// // var copyRight = data.copyRight
+// // var explanation = data.explanation
 
 // nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
 // 
@@ -43,40 +30,58 @@ podDescriptionContEl.textContent = 'pod text';
 // // var copyRight = data.copyRight
 // // var explanation = data.explanation
 
+// fetch request for NASA POD API
+
+// var displayPOD = function (pod) {
+//     // if there is no info inside API and return value is 0 it will give us no image found
+//     if (pod.length === 0) {
+//         podEl.textContent = 'No image found';
+//         return;
+//     }
+// fetch URL
 
 
-// function to access API within the search button function for a city with lats/lons
-var getNasaPod = function (pod) {
-   
-var picOfDayUrl = 'https://api.nasa.gov/planetary/apod?api_key=g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
-console.log(picOfDayUrl);
-    
+nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
+var podUrl = 'https://api.nasa.gov/planetary/apod?api_key=' + nasaAPI;
+
+fetch(podUrl)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        var podTitle = data.title;
+        var podExplanation = data.explanation;
+        var podSrc = data.url;
+        // this is where we append things to our page
+        // pod
+        var podTitleEl = document.createElement('h3')
+        podTitleEl.classList.add('podtitleheadertest')  // creating class for future
+        podContainerEl.appendChild(podTitleEl)
+        podTitleEl.textContent = podTitle
+
+        var podEl = document.createElement('img');
+        podEl.classList.add('picture', 'test2');
+        podEl.src = podSrc;
+        podEl.alt = podTitle;
+        podEl.title = podTitle;
+        podContainerEl.appendChild(podEl);
+
+        // text div for pod details
+        var podDescriptionContEl = document.createElement('div');
+        podDescriptionContEl.classList.add('poddescriptioncontainer', 'test2');
+        podContainerEl.appendChild(podDescriptionContEl);
+        podDescriptionContEl.textContent = podExplanation;
 
 
-    
-    fetch(picOfDayUrl)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (pod) {
-                    displayPOD(pod);
-                });
-            } else {
-                alert('Error: ' + response.statusText);
-            }
-        })
-        .catch(function (error) {
-            alert('Unable to find data for this city');
-        });
-};
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
 
+// }
+// displayPOD();
 
-
-getNasaPod();
-
-
-
-
-
+    // console.log("does this work?", displayPOD);
 
 // // var lat = data.latitude
 // // var lon = data.longitude
