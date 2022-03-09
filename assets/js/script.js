@@ -37,35 +37,41 @@ podContainerEl.appendChild(podDescriptionContEl);
 podDescriptionContEl.textContent = 'pod text';
 
 
-
-
-// // fetch request for API
-// var displayPOD = function () {
-//     if (weatherData.length === 0) {
-//         mainEl.textContent = 'No data found';
-//         return;
-//     }
-//     // fetch URL
-//     var coordinateRequestUrl = '';
-//     fetch(coordinateRequestUrl)
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             // this is where we append things to our page
-
-//             })
-//         .catch(function (err) {
-//             console.log(err);
-//         })
-//     return;
-// };
+// nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
+// 
+// // var podTitle = data.title
+// // var copyRight = data.copyRight
+// // var explanation = data.explanation
 
 
 
+// function to access API within the search button function for a city with lats/lons
+var getNasaPod = function (pod) {
+   
+var picOfDayUrl = 'https://api.nasa.gov/planetary/apod?api_key=g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
+console.log(picOfDayUrl);
+    
+
+
+    
+    fetch(picOfDayUrl)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (pod) {
+                    displayPOD(pod);
+                });
+            } else {
+                alert('Error: ' + response.statusText);
+            }
+        })
+        .catch(function (error) {
+            alert('Unable to find data for this city');
+        });
+};
 
 
 
+getNasaPod();
 
 
 
@@ -87,10 +93,5 @@ podDescriptionContEl.textContent = 'pod text';
 // //current time where is ISS
 // baseUrl = 'https://api.wheretheiss.at/v1/satellites/25544'
 
-// nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
-// picOfDayUrl = 'https://api.nasa.gov/planetary/apod?api_key=' + nasaAPI
-// // var podTitle = data.title
-// // var copyRight = data.copyRight
-// // var explanation = data.explanation
 
 //  marsWeatherUrl ='https://api.nasa.gov/insight_weather/?api_key=' + nasaAPI + '&feedtype=json&ver=1.0'
