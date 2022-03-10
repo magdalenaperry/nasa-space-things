@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,20 +11,34 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/style/bootswatch.css">
     <link rel="stylesheet" href="./assets/style/style.css">
+<!-- leaflet map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
 </head>
+
 <body>
     <container>
-        Source Code
+
+<!-- <div id="map"></div> -->
+
+<!-- <iframe width="800" height="800" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+    src="https://maps.google.com/maps?q=-39.615289964922,47.142021197707&hl=es&z=3&amp;output=embed">
+</iframe> -->
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#pod-page">Picture of Day</a>
+                <a class="nav-link active" data-bs-toggle="tab" href="#pod-container">Picture of Day</a>
+                
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#profile">Mars</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#iss-container">ISS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#iss">ISS</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#nearest-object">Nearest Object</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
@@ -41,21 +56,21 @@
             </li> -->
         </ul>
         <!-- <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade active show" id="home">
-                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua,
-                    retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
-                    Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry
-                    richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american
-                    apparel, butcher voluptate nisi qui.</p>
+            <div class="tab-pane fade active show" id="pod-container">
+                add pod page here
+                pod page
             </div>
-            <div class="tab-pane fade" id="profile">
-                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation
-                    +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-                    craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
-                    ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.
-                </p>
+            <div class="tab-pane fade" id="iss-container">
+                
+                iss page
             </div>
-            <div class="tab-pane fade" id="dropdown1">
+            <div class="tab-pane fade" id="nearest-object">
+                
+                another page
+            </div> -->
+
+
+            <!-- <div class="tab-pane fade" id="dropdown1">
                 <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro
                     fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer,
                     iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
@@ -66,10 +81,15 @@
                     cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
                     locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before
                     they sold out farm-to-table VHS viral locavore cosby sweater.</p>
-            </div>
-        </div> -->
+            </div> -->
+        </div>
     </container>
-<!-- <script src="./assets/js/script.js"></script>  -->
-<script src="./assets/js/iss.js"></script>   
+
+    <section>
+
+    </section>
+    <script src="./assets/js/script.js"></script>
+    <!-- <script src="./assets/js/iss.js"></script> -->
 </body>
+
 </html>
