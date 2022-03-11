@@ -1,13 +1,13 @@
 var containerEl = document.querySelector('container');
 
 var headerTitleEl = document.createElement('header');
-headerTitleEl.classList.add('display-1', 'text-center', 'py-5',);
+headerTitleEl.classList.add('display-1', 'text-center', 'py-5', );
 containerEl.prepend(headerTitleEl);
 headerTitleEl.textContent = 'SPACE';
 
 // TAB CONTENTS 
 var tabContent = document.createElement('div');
-tabContent.setAttribute('id', 'myTabContent',);
+tabContent.setAttribute('id', 'myTabContent', );
 containerEl.appendChild(tabContent);
 
 var tabPodEl = document.createElement('div');
@@ -39,16 +39,17 @@ var issContainerEl = document.createElement('div');
 issContainerEl.classList.add('test');
 tabIssEl.appendChild(issContainerEl);
 
+// container for date on NO page
+var noDateEl = document.createElement('div');
+noDateEl.classList.add('display-4', 'text-center');
+tabNearestObject.appendChild(noDateEl);
+noDateEl.textContent = moment().format('MMMM Do, YYYY');
+
 // container nearest object
 var nearestObjectContainerEl = document.createElement('div');
 nearestObjectContainerEl.classList.add('test');
 tabNearestObject.appendChild(nearestObjectContainerEl);
 
-// container for date on NO page
-var noDateEl = document.createElement('div');
-noDateEl.classList.add('display-4', 'text-center');
-tabNearestObject.prepend(noDateEl);
-noDateEl.textContent = moment().format('MMMM Do, YYYY');
 
 // navbar links
 var podLink = document.getElementById('pod');
@@ -118,6 +119,30 @@ displayPOD();
 
 // BREAK POINT FOR SEPARATE PAGE
 
+
+
+var renderLocalStorage = function (timeStorage, map, whatever) {
+
+    var latlngs = [];
+
+    for (var i = 0; i < timeStorage.length; i++) {
+        latlngs.push([timeStorage[i].lat, timeStorage[i].lon])
+    }
+    console.log(latlngs);
+
+    // create a red polyline from an array of LatLng points
+
+    var polyline = L.polyline(latlngs, {
+        color: 'red'
+    }).addTo(map);
+
+    // zoom the map to the polyline
+    map.fitBounds(polyline.getBounds());
+}
+
+
+
+
 var issPage = function () {
     onlyISS();
     var getCoordinatesFromAPI = function (city) {
@@ -141,10 +166,18 @@ var issPage = function () {
             });
     };
 
+
+
+
+
+
+
+
+
     // connects the lat/lon and the ISS city/maps API 
     var displayMapLatLon = function (latlonData) {
         if (!latlonData) {
-            console.log('no data found');
+            // console.log('no data found');
             return;
         }
 
@@ -156,20 +189,23 @@ var issPage = function () {
         var timestamp = latlonData.timestamp;
         console.log(lat, lon, currentIssTime);
 
-        // get lat, lon, time in unix from api ^ and then convert to moment
-        // save this information to local storage as (unix, lat/lon )
         // get that information add a red marker (with the latitudes from the local storage)
 
-        var point = { lat, lon, timestamp };
-        // console.log(latlonData.timestamp);
+        var point = {
+            lat,
+            lon,
+            timestamp
+        };
+        // console.log(point);
         var timeStorage = JSON.parse(localStorage.getItem("cityTimeStampUnix")) || [];
         var lastTimeStamp = timeStorage[timeStorage.length - 1];
         var now = new Date().getTime() / 1000;
-        console.log("TIMESTAMP", lastTimeStamp.timestamp);
+        // console.log("TIMESTAMP", lastTimeStamp.timestamp);
         console.log("NOW", now);
-        if (now > lastTimeStamp.timestamp + 900) {
+        if (!timeStorage.length || now > lastTimeStamp.timestamp + 60) {
             timeStorage.push(point);
             localStorage.setItem("cityTimeStampUnix", JSON.stringify(timeStorage));
+            // renderLocalStorage(timeStorage, map);
         }
 
         // fetch information using coordinates to find city
@@ -202,8 +238,8 @@ var issPage = function () {
                 tabIssEl.appendChild(mapImage);
 
                 // set map 
-                var map = L.map('map').setView([lat, lon], 3);
-                    // console.log(lat, lon);
+                var map = L.map('map').setView([lat, lon], 1);
+                // console.log(lat, lon);
 
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWJwZXJyeTE2IiwiYSI6ImNsMGw0NHc1MzBzbjQzaWw0eGJvOWlwenEifQ.Tldp3_qx74Vu3cnGOBgpcw', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -223,6 +259,12 @@ var issPage = function () {
 
                 // add markers from trajector points here
 
+
+                // create a red polyline from an array of LatLng points
+
+
+
+                renderLocalStorage(timeStorage, map);
             })
             .catch(function (err) {
                 console.log(err);
@@ -261,17 +303,22 @@ var displayNearestObjects = function (objects) {
             // objectImage.title = 'space objects';
             // nearest.appendChild(objectImage);
 
-            var nObjectResultsEl = document.createElement('div');
-            nObjectResultsEl.classList.add('test');
-
-
-
-
-
             var objectCountPrint = document.createElement('div');
             objectCountPrint.classList.add('col-4', 'h5', 'card', 'p-3', 'mx-2', 'my-3');
             nearestObjectContainerEl.appendChild(objectCountPrint);
             objectCountPrint.textContent = 'There are currently ' + objects + ' objects';
+
+            var divobject= document.createElement('div');
+            divobject.classList.add('test');
+            nearestObjectContainerEl.appendChild(divobject);
+            divobject.textContent = ''
+
+
+            var descobject = document.createElement('div');
+            descobject.classList.add('test');
+            divobject.appendChild(descobject);
+            divobject.textContent = 'Here goes info about how read and understand this info'
+
 
             // add stuff here
             for (var i = 0; i < data.near_earth_objects[date].length; i++) {
@@ -289,7 +336,7 @@ var displayNearestObjects = function (objects) {
                 // creates individual cards for each object
                 var objectPrintContainer = document.createElement('div');
                 objectPrintContainer.classList.add('col-4', 'h6', 'card', 'py-3', 'px-3', 'mx-2', 'my-2');
-                nearestObjectContainerEl.appendChild(objectPrintContainer);
+                divobject.appendChild(objectPrintContainer);
 
                 var namePrint = document.createElement('p');
                 namePrint.classList.add('test');
