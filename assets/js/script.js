@@ -19,18 +19,19 @@ tabIssEl.setAttribute('id', 'iss-container');
 tabContent.appendChild(tabIssEl);
 
 var tabNearestObject = document.createElement('div');
-tabNearestObject.classList.add('row')
+tabNearestObject.classList.add('row');
 tabNearestObject.setAttribute('id', 'nearest-object');
 tabContent.appendChild(tabNearestObject);
 
 // container for pod page
 var podApiEl = document.createElement('div');
-podApiEl.classList.add('py-5', 'px-5', 'test2');
+podApiEl.classList.add('py-5', 'px-5');
 tabPodEl.appendChild(podApiEl);
 
 // container for pod
-var podContainerEl = document.createElement('div');
-podContainerEl.classList.add('py-5', 'px-5', 'text-center');
+var podContainerEl = document.createElement('figure');
+podContainerEl.setAttribute('id', 'pod-frame');
+podContainerEl.classList.add('figure','pb-3', 'pt-5','text-center') ;
 podApiEl.appendChild(podContainerEl);
 
 // container for ISS
@@ -78,28 +79,34 @@ var displayPOD = function (pod) {
         })
         .then(function (data) {
             onlyPOD();
+            // data extracred from URL
             var podTitle = data.title;
             var podExplanation = data.explanation;
             var podSrc = data.url;
-            // this is where we append things to our page
-            // pod
+
+            // POD appended to page
             var podTitleEl = document.createElement('h3')
-            podTitleEl.classList.add('podtitleheadertest') // creating class for future
-            podContainerEl.appendChild(podTitleEl)
-            podTitleEl.textContent = podTitle
+            podTitleEl.classList.add('pt-2', 'pb-4') // creating class for future
+            podContainerEl.appendChild(podTitleEl);
+            podTitleEl.textContent = podTitle;
 
             var podEl = document.createElement('img');
-            podEl.classList.add('img-fluid');
+            podEl.classList.add('figure-img','img-fluid', 'rounded', 'pod-frame');
             podEl.src = podSrc;
             podEl.alt = podTitle;
             podEl.title = podTitle;
             podContainerEl.appendChild(podEl);
 
             // text div for pod details
-            var podDescriptionContEl = document.createElement('div');
-            podDescriptionContEl.classList.add('poddescriptioncontainer');
+            var podDescriptionContEl = document.createElement('figcaption');
+            podDescriptionContEl.classList.add('img-fluid','fig-caption', 'mx-5','px-5');
             podContainerEl.appendChild(podDescriptionContEl);
             podDescriptionContEl.textContent = podExplanation;
+
+            var descCloseBtn = document.createElement('button');
+            descCloseBtn.classList.add('btn-close');
+            descCloseBtn.setAttribute('aria-label', 'close');
+            podDescriptionContEl.prepend(descCloseBtn);
         })
         .catch(function (err) {
             console.log(err);
@@ -137,20 +144,8 @@ var issPage = function () {
 
                         // access the data that is readable ^
                         .then(function (data) {
-
-
                             // this function is made to link the data from this fetch request to the url that holds city information
-                            // (data) will turn into (latlondata) 
                             displayMapLatLon(data);
-                            // console.log(data.latitude);
-                            // console.log(data.longitude);
-                            // // var lat = data.latitude
-                            // // var lon = data.longitude
-                            // // googleMap = data.map_url
-                            // // timezone = data.timezone_id
-
-
-
                         });
                 } else {
                     // if data is not available (look at line 24)= get alert that says error 
@@ -162,21 +157,11 @@ var issPage = function () {
                 alert('Unable to find data');
             });
     };
-
-
     // get lat, lon, time in unix from api ^ and then convert to moment
     // save this information to local storage
     // get that information add a red marker (with the latitudes from the local storage)
 
-
-
-
-
-
-
-
     // // connects the lat/lon and the ISS city/maps API 
-    // loook at line 34
     var displayMapLatLon = function (latlonData) {
         if (!latlonData) {
             // containerEl = 'No data found';
@@ -206,7 +191,6 @@ var issPage = function () {
                 console.log(ISSdata.timezone_id);
                 console.log(ISSdata.map_url);
                 // insert stuff to populate ISS Data
-                // placeholder image for ISS 
                 var issImage = document.createElement("img");
                 issImage.classList.add('iss-pic');
                 issImage.src = "https://bgr.com/wp-content/uploads/2022/02/AdobeStock_320918695.jpeg?resize=800,800"
@@ -214,12 +198,10 @@ var issPage = function () {
                 issImage.title = "International Space Station"
                 tabIssEl.appendChild(issImage);
 
-
-
                 // time zone
                 var timeZoneEl = document.createElement('div');
                 timeZoneEl.textContent = "Time Zone: " + ISSdata.timezone_id
-                tabIssEl.appendChild(timeZoneEl);
+                tabIssEl.prepend(timeZoneEl);
 
 
                 // display ISS map on page:
@@ -246,7 +228,6 @@ var issPage = function () {
                     .setLatLng([lat + 3, lon])
                     .setContent("I'm traveling at " + Math.floor(velocity * 0.621371) + " mph")
                     .openOn(map);
-
             })
             .catch(function (err) {
                 console.log(err);
@@ -256,9 +237,7 @@ var issPage = function () {
     // have to call the functions to see the console.logs & new html created inside of each function
     getCoordinatesFromAPI();
     displayMapLatLon();
-
 }
-
 
 /* < input type = "date" id = "start" name = "trip-start" value = "2018-07-22" min = "2018-01-01" max = "2018-12-31" > */
 
@@ -411,19 +390,7 @@ var displayNearestObjects = function (objects) {
             // return;
             
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+   
         var onlyPOD = function () {
             tabIssEl.style.display = "none";
             tabPodEl.style.display = "block";
