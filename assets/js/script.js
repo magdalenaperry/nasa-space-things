@@ -1,13 +1,13 @@
 var containerEl = document.querySelector('container');
 
 var headerTitleEl = document.createElement('header');
-headerTitleEl.classList.add('display-1', 'text-center', 'py-5', );
+headerTitleEl.classList.add('display-1', 'text-center', 'webtitle');
 containerEl.prepend(headerTitleEl);
-headerTitleEl.textContent = 'SPACE';
+headerTitleEl.textContent = 'COSMIC DUST';
 
 // TAB CONTENTS 
 var tabContent = document.createElement('div');
-tabContent.setAttribute('id', 'myTabContent', );
+tabContent.setAttribute('id', 'myTabContent');
 containerEl.appendChild(tabContent);
 
 var tabPodEl = document.createElement('div');
@@ -19,35 +19,28 @@ tabIssEl.setAttribute('id', 'iss-container');
 tabContent.appendChild(tabIssEl);
 
 var tabNearestObject = document.createElement('div');
-tabNearestObject.classList.add('row');
 tabNearestObject.setAttribute('id', 'nearest-object');
+tabNearestObject.classList.add('row');
 tabContent.appendChild(tabNearestObject);
 
 // container for pod page
 var podApiEl = document.createElement('div');
-podApiEl.classList.add('py-5', 'px-5');
+podApiEl.classList.add('py-5', 'px-5', 'lh-lg', 'fs-5', 'fw-light' );
 tabPodEl.appendChild(podApiEl);
 
 // container for pod
 var podContainerEl = document.createElement('figure');
-podContainerEl.setAttribute('id', 'pod-frame');
 podContainerEl.classList.add('figure', 'pb-3', 'pt-5', 'text-center');
 podApiEl.appendChild(podContainerEl);
 
 // container for ISS
 var issContainerEl = document.createElement('div');
-issContainerEl.classList.add('test');
+// issContainerEl.classList.add('fw-light', 'text-center', 'fs-5');
 tabIssEl.appendChild(issContainerEl);
-
-// container for date on NO page
-var noDateEl = document.createElement('div');
-noDateEl.classList.add('display-4', 'text-center');
-tabNearestObject.appendChild(noDateEl);
-noDateEl.textContent = moment().format('MMMM Do, YYYY');
 
 // container nearest object
 var nearestObjectContainerEl = document.createElement('div');
-nearestObjectContainerEl.classList.add('test');
+// nearestObjectContainerEl.classList.add('test');
 tabNearestObject.appendChild(nearestObjectContainerEl);
 
 
@@ -141,9 +134,6 @@ var renderLocalStorage = function (timeStorage, map, whatever) {
     map.fitBounds(polyline.getBounds());
 }
 
-
-
-
 var issPage = function () {
     onlyISS();
     var getCoordinatesFromAPI = function (city) {
@@ -166,14 +156,6 @@ var issPage = function () {
                 console.log('error');
             });
     };
-
-
-
-
-
-
-
-
 
     // connects the lat/lon and the ISS city/maps API 
     var displayMapLatLon = function (latlonData) {
@@ -222,7 +204,7 @@ var issPage = function () {
                 tabIssEl.innerHTML = '';
 
                 var issImage = document.createElement("img");
-                issImage.classList.add('iss-pic');
+                issImage.classList.add('iss-pic', 'col-3', 'mx-2', 'my-5');
                 issImage.src = "https://bgr.com/wp-content/uploads/2022/02/AdobeStock_320918695.jpeg?resize=800,800"
                 issImage.alt = "International Space Station"
                 issImage.title = "International Space Station"
@@ -230,11 +212,13 @@ var issPage = function () {
 
                 // time zone
                 var timeZoneEl = document.createElement('div');
-                timeZoneEl.textContent = "Time Zone: " + ISSdata.timezone_id
+                timeZoneEl.textContent = "The International Space Station is currently in the -" + ISSdata.timezone_id + "- time zone."
+                timeZoneEl.classList.add('col-12', 'pt-5', 'fs-3','fw-light', 'text-center', 'time-zone-txt')
                 tabIssEl.prepend(timeZoneEl);
 
                 // display ISS map on page:
                 var mapImage = document.createElement("div");
+                mapImage.classList.add('col-9', 'mx-2', 'my-5')
                 mapImage.setAttribute('id', 'map');
                 tabIssEl.appendChild(mapImage);
 
@@ -289,7 +273,7 @@ var displayNearestObjects = function (objects) {
     var nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
     var nearestObjectUrl = 'https://api.nasa.gov/neo/rest/v1/feed?start_date=' + date + '&end_date=' + date + '&api_key=' + nasaAPI
 
-
+    console.log(nearestObjectUrl);
     fetch(nearestObjectUrl)
         .then(function (response) {
             return response.json();
@@ -304,26 +288,56 @@ var displayNearestObjects = function (objects) {
             // objectImage.title = 'space objects';
             // nearest.appendChild(objectImage);
 
-            var objectCountPrint = document.createElement('div');
-            objectCountPrint.classList.add('col-4', 'h5', 'card', 'p-3', 'mx-2', 'my-3');
-            nearestObjectContainerEl.appendChild(objectCountPrint);
-            objectCountPrint.textContent = 'There are currently ' + objects + ' objects';
-
+            
             var divobject= document.createElement('div');
-            divobject.classList.add('test');
+            divobject.classList.add('row', 'div-object');
             nearestObjectContainerEl.appendChild(divobject);
             divobject.textContent = ''
-
-
+            
             var descobject = document.createElement('div');
-            descobject.classList.add('test');
+            descobject.classList.add('col-12', 'text-center', 'h3', 'nasa-par');
             divobject.appendChild(descobject);
-            divobject.textContent = 'Here goes info about how read and understand this info'
+            
+            var neoImg = document.createElement('img');
+            neoImg.classList.add('neo', 'img-fluid');
+            neoImg.src = './assets/images/near-earth-object.jpeg';
+            neoImg.alt = 'Near Earth Object';
+            neoImg.title = 'Near Earth Object: Global.Neos Community';
+            descobject.appendChild(neoImg);
+            
+            var figNASA = document.createElement('figure');
+            figNASA.classList.add('text-end');
+            descobject.appendChild(figNASA);
+            
+            var nasaBlockquote = document.createElement('blockquote');
+            nasaBlockquote.classList.add('blockquote');
+            figNASA.appendChild(nasaBlockquote);
+            
+            var nasaPar = document.createElement('p')
+            nasaPar.classList.add('mb-0', 'mx-5');
+            nasaBlockquote.appendChild(nasaPar);
+            nasaPar.textContent = 'Near-Earth Objects (NEOs) are comets and asteroids that have been nudged by the gravitational attraction of nearby planets into orbits that allow them to enter the Earth’s neighborhood. Composed mostly of water ice with embedded dust particles, comets originally formed in the cold outer planetary system while most of the rocky asteroids formed in the warmer inner solar system between the orbits of Mars and Jupiter.'
+            
+            var nasaFigcap = document.createElement('figcaption')
+            nasaFigcap.classList.add('blockquote-footer', 'mx-5')
+            figNASA.appendChild(nasaFigcap);
+            nasaFigcap.textContent= 'Center for Near Earth Object Studies'
+            
+           
+            var noDateEl = document.createElement('div');
+            noDateEl.classList.add('text-center', 'nasa-date');
+            divobject.appendChild(noDateEl);
+            noDateEl.textContent = moment().format('MMMM Do, YYYY');
+
+            var objectCountPrint = document.createElement('div');
+            objectCountPrint.classList.add('col-11', 'text-center', 'h5', 'card', 'p-3', 'mx-5', 'my-3');
+            divobject.appendChild(objectCountPrint);
+            objectCountPrint.textContent = 'There are currently ' + objects + ' Near Earth Objects.';
 
 
             // add stuff here
             for (var i = 0; i < data.near_earth_objects[date].length; i++) {
-
+                
                 var name = data.near_earth_objects[date][i].name;
                 // console.log(name);
                 var minSize = data.near_earth_objects[date][i].estimated_diameter.miles.estimated_diameter_min;
@@ -336,7 +350,7 @@ var displayNearestObjects = function (objects) {
 
                 // creates individual cards for each object
                 var objectPrintContainer = document.createElement('div');
-                objectPrintContainer.classList.add('col-4', 'h6', 'card', 'py-3', 'px-3', 'mx-2', 'my-2');
+                objectPrintContainer.classList.add('col-5', 'h6', 'card', 'py-3', 'px-3', 'mx-2', 'my-2');
                 divobject.appendChild(objectPrintContainer);
 
                 var namePrint = document.createElement('p');
@@ -366,7 +380,7 @@ var displayNearestObjects = function (objects) {
                     dangerPrint.textContent = 'Potentially Hazardous!'
                 } else {
                     var dangerPrint = document.createElement('button');
-                    dangerPrint.classList.add('btn', 'btn-primary');
+                    dangerPrint.classList.add('btn', 'btn-success');
                     objectPrintContainer.appendChild(dangerPrint);
                     dangerPrint.textContent = 'Not Hazardous'
                 }
