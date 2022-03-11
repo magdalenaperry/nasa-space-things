@@ -25,8 +25,7 @@ p{
 }
 
 #pod-frame{
-    background-color: rgba(0, 0, 0, 0.372);
-    width:100%;
+    border: 10px rgba(0, 0, 0, 0.372;
 }
 
 .fig-caption{

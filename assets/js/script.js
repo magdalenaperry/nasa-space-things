@@ -92,7 +92,8 @@ var displayPOD = function (pod) {
             podTitleEl.textContent = podTitle;
 
             var podEl = document.createElement('img');
-            podEl.classList.add('figure-img', 'img-fluid', 'rounded', 'pod-frame');
+            podEl.classList.add('figure-img', 'img-fluid', 'rounded');
+            podEl.setAttribute('id','pod-frame')
             podEl.src = podSrc;
             podEl.alt = podTitle;
             podEl.title = podTitle;
