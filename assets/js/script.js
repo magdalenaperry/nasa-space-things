@@ -31,7 +31,7 @@ tabPodEl.appendChild(podApiEl);
 // container for pod
 var podContainerEl = document.createElement('figure');
 podContainerEl.setAttribute('id', 'pod-frame');
-podContainerEl.classList.add('figure','pb-3', 'pt-5','text-center') ;
+podContainerEl.classList.add('figure', 'pb-3', 'pt-5', 'text-center');
 podApiEl.appendChild(podContainerEl);
 
 // container for ISS
@@ -91,7 +91,7 @@ var displayPOD = function (pod) {
             podTitleEl.textContent = podTitle;
 
             var podEl = document.createElement('img');
-            podEl.classList.add('figure-img','img-fluid', 'rounded', 'pod-frame');
+            podEl.classList.add('figure-img', 'img-fluid', 'rounded', 'pod-frame');
             podEl.src = podSrc;
             podEl.alt = podTitle;
             podEl.title = podTitle;
@@ -99,7 +99,7 @@ var displayPOD = function (pod) {
 
             // text div for pod details
             var podDescriptionContEl = document.createElement('figcaption');
-            podDescriptionContEl.classList.add('img-fluid','fig-caption', 'mx-5','px-5');
+            podDescriptionContEl.classList.add('img-fluid', 'fig-caption', 'mx-5', 'px-5');
             podContainerEl.appendChild(podDescriptionContEl);
             podDescriptionContEl.textContent = podExplanation;
 
@@ -116,81 +116,74 @@ var displayPOD = function (pod) {
 }
 displayPOD();
 
-
-
 // BREAK POINT FOR SEPARATE PAGE
-
-
-
-// // find lat and lon for a specific time in unix
-// https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029892,1436029902&units=miles
-// timestampUrl = 'https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=' + unixTimeStamp + '&units=miles'
 
 var issPage = function () {
     onlyISS();
-    // function to access API within the search button function for a city with lats/lons
     var getCoordinatesFromAPI = function (city) {
-        // base url to get the coordinates from ISS at current time =
+        // base url to get the coordinates from ISS at current time
         var baseUrl = 'https://api.wheretheiss.at/v1/satellites/25544'
 
         console.log(baseUrl);
         fetch(baseUrl)
             .then(function (response) {
-                // if the data is available
                 if (response.ok) {
-                    // return response as data as json which makes it readable 
-                    // (response) turns into (data)
                     response.json()
-
-                        // access the data that is readable ^
                         .then(function (data) {
-                            // this function is made to link the data from this fetch request to the url that holds city information
                             displayMapLatLon(data);
                         });
                 } else {
-                    // if data is not available (look at line 24)= get alert that says error 
-                    alert('Error: ' + response.statusText);
+                    console.log(response.status);
                 }
             })
-            // if api url is not available = nothing is given back
             .catch(function (error) {
-                alert('Unable to find data');
+                console.log('error');
             });
     };
-    // get lat, lon, time in unix from api ^ and then convert to moment
-    // save this information to local storage
-    // get that information add a red marker (with the latitudes from the local storage)
 
-    // // connects the lat/lon and the ISS city/maps API 
+    // connects the lat/lon and the ISS city/maps API 
     var displayMapLatLon = function (latlonData) {
         if (!latlonData) {
-            // containerEl = 'No data found';
+            console.log('no data found');
             return;
         }
-        // latlonData used to be data
+
         var currentIssTime = latlonData.timestamp;
-        var lat = latlonData.latitude
-        var lon = latlonData.longitude
-        var velocity = latlonData.velocity
-        var altitude = latlonData.altitude
+        var lat = latlonData.latitude;
+        var lon = latlonData.longitude;
+        var velocity = latlonData.velocity;
+        var altitude = latlonData.altitude;
+        var timestamp = latlonData.timestamp;
         console.log(lat, lon, currentIssTime);
 
+        // get lat, lon, time in unix from api ^ and then convert to moment
+        // save this information to local storage as (unix, lat/lon )
+        // get that information add a red marker (with the latitudes from the local storage)
+
+        var point = { lat, lon, timestamp };
+        // console.log(latlonData.timestamp);
+        var timeStorage = JSON.parse(localStorage.getItem("cityTimeStampUnix")) || [];
+        var lastTimeStamp = timeStorage[timeStorage.length - 1];
+        var now = new Date().getTime() / 1000;
+        console.log("TIMESTAMP", lastTimeStamp.timestamp);
+        console.log("NOW", now);
+        if (now > lastTimeStamp.timestamp + 900) {
+            timeStorage.push(point);
+            localStorage.setItem("cityTimeStampUnix", JSON.stringify(timeStorage));
+        }
 
         // fetch information using coordinates to find city
         var baseCityUrl = 'https://api.wheretheiss.at/v1/coordinates/'
         var coordinateToCityUrl = baseCityUrl + lat + ',' + lon
-        // console.log('new url', coordinateToCityUrl)
 
         fetch(coordinateToCityUrl)
             .then(function (response) {
                 return response.json();
             })
             .then(function (ISSdata) {
+                // appended ISS elements to page
+                tabIssEl.innerHTML = '';
 
-                tabIssEl.innerHTML = ''
-                console.log(ISSdata.timezone_id);
-                console.log(ISSdata.map_url);
-                // insert stuff to populate ISS Data
                 var issImage = document.createElement("img");
                 issImage.classList.add('iss-pic');
                 issImage.src = "https://bgr.com/wp-content/uploads/2022/02/AdobeStock_320918695.jpeg?resize=800,800"
@@ -203,15 +196,14 @@ var issPage = function () {
                 timeZoneEl.textContent = "Time Zone: " + ISSdata.timezone_id
                 tabIssEl.prepend(timeZoneEl);
 
-
                 // display ISS map on page:
                 var mapImage = document.createElement("div");
                 mapImage.setAttribute('id', 'map');
-                // mapImage.classList.add('text-center');
                 tabIssEl.appendChild(mapImage);
 
+                // set map 
                 var map = L.map('map').setView([lat, lon], 3);
-                console.log(lat, lon);
+                    // console.log(lat, lon);
 
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWJwZXJyeTE2IiwiYSI6ImNsMGw0NHc1MzBzbjQzaWw0eGJvOWlwenEifQ.Tldp3_qx74Vu3cnGOBgpcw', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -219,7 +211,7 @@ var issPage = function () {
                     id: 'mapbox/streets-v11',
                     tileSize: 512,
                     zoomOffset: -1,
-                    accessToken: 'your.mapbox.access.token'
+                    // accessToken: 'your.mapbox.access.token'
                 }).addTo(map);
 
                 var marker = L.marker([lat, lon]).addTo(map);
@@ -228,46 +220,31 @@ var issPage = function () {
                     .setLatLng([lat + 3, lon])
                     .setContent("I'm traveling at " + Math.floor(velocity * 0.621371) + " mph")
                     .openOn(map);
+
+                // add markers from trajector points here
+
             })
             .catch(function (err) {
                 console.log(err);
             });
         return;
     };
-    // have to call the functions to see the console.logs & new html created inside of each function
     getCoordinatesFromAPI();
     displayMapLatLon();
 }
 
-/* < input type = "date" id = "start" name = "trip-start" value = "2018-07-22" min = "2018-01-01" max = "2018-12-31" > */
-
-// https://api.nasa.gov/neo/rest/v1/feed?start_date=2022-03-09&end_date=2022-03-10&api_key=DEMO_KEY
-
-// URL = 'https://api.nasa.gov/neo/rest/v1/feed?start_date=' + 2022-03-09 + '&end_date=' + 2022-03-10 + '&api_key=' + API
-// data.element_count
-// data.near_earth_objects.2022-03-09[0].estimated_diameter.miles.estimated_diameter_min
-// data.near_earth_objects.2022-03-09[0].estimated_diameter.miles
-// $.near_earth_objects.2022-03-09[0].is_potentially_hazardous_asteroid 
-// $.near_earth_objects.2022-3-09[0].close_approach_data[0].close_approach_date_full
-// $.near_earth_objects.2022-03-09[0].close_approach_data[0].relative_velocity.miles_per_hour
-
-
-// Nearest Objects
+// ***** Nearest Objects TAB
 var displayNearestObjects = function (objects) {
-    // tabIssEl.style.display = "none";
     onlyNO();
     nearestObjectContainerEl.innerHTML = '';
 
-    // if there is no info inside API and return value is 0 it will give us no image found
     if (objects === 0) {
-        // podContainerEl.textContent = 'No image found';
         return;
     }
     var date = moment().format('YYYY-MM-DD');
     console.log(date);
     var nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP'
     var nearestObjectUrl = 'https://api.nasa.gov/neo/rest/v1/feed?start_date=' + date + '&end_date=' + date + '&api_key=' + nasaAPI
-    // console.log(nearestObjectUrl);
 
 
     fetch(nearestObjectUrl)
@@ -276,7 +253,7 @@ var displayNearestObjects = function (objects) {
         })
         .then(function (data) {
             var objects = data.element_count;
-            
+
             // var objectImage = document.createElement('img');
             // objectImage.classList.add('col-5', 'card');
             // objectImage.src = 'https://via.placeholder.com/400'
@@ -290,15 +267,15 @@ var displayNearestObjects = function (objects) {
 
 
 
-            
+
             var objectCountPrint = document.createElement('div');
             objectCountPrint.classList.add('col-4', 'h5', 'card', 'p-3', 'mx-2', 'my-3');
             nearestObjectContainerEl.appendChild(objectCountPrint);
             objectCountPrint.textContent = 'There are currently ' + objects + ' objects';
-            
+
             // add stuff here
             for (var i = 0; i < data.near_earth_objects[date].length; i++) {
-                
+
                 var name = data.near_earth_objects[date][i].name;
                 // console.log(name);
                 var minSize = data.near_earth_objects[date][i].estimated_diameter.miles.estimated_diameter_min;
@@ -308,32 +285,32 @@ var displayNearestObjects = function (objects) {
                 var danger = data.near_earth_objects[date][i].is_potentially_hazardous_asteroid;
                 var closeDate = data.near_earth_objects[date][i].close_approach_data[0].close_approach_date_full;
                 var velocityObject = data.near_earth_objects[date][i].close_approach_data[0].relative_velocity.miles_per_hour
-                
+
                 // creates individual cards for each object
                 var objectPrintContainer = document.createElement('div');
                 objectPrintContainer.classList.add('col-4', 'h6', 'card', 'py-3', 'px-3', 'mx-2', 'my-2');
                 nearestObjectContainerEl.appendChild(objectPrintContainer);
-                
+
                 var namePrint = document.createElement('p');
                 namePrint.classList.add('test');
                 objectPrintContainer.appendChild(namePrint);
                 namePrint.textContent = 'Name: ' + name;
-                
+
                 var avgSizePrint = document.createElement('p');
                 avgSizePrint.classList.add('test');
                 objectPrintContainer.appendChild(avgSizePrint);
                 avgSizePrint.textContent = 'Size: ' + Math.floor(avgSize * 1760) + ' yds';
-                
+
                 var velocityPrint = document.createElement('p');
                 velocityPrint.classList.add('test');
                 objectPrintContainer.appendChild(velocityPrint);
                 velocityPrint.textContent = 'Velocity: ' + Math.floor(velocityObject) + ' mph';
-                
+
                 var closePrint = document.createElement('p');
                 closePrint.classList.add('test');
                 objectPrintContainer.appendChild(closePrint);
                 closePrint.textContent = 'Closest Approaching Time: ' + closeDate;
-                
+
                 if (danger) {
                     var dangerPrint = document.createElement('button');
                     dangerPrint.classList.add('btn', 'btn-warning');
@@ -344,81 +321,27 @@ var displayNearestObjects = function (objects) {
                     dangerPrint.classList.add('btn', 'btn-primary');
                     objectPrintContainer.appendChild(dangerPrint);
                     dangerPrint.textContent = 'Not Hazardous'
-                    
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                // console.log(data.near_earth_objects[date][i]);
-                
-                
-                
-                
-                
-                
-                
-                
             }
-            
-            
-            // var name = data.near_earth_objects[date][i].name;
-            // console.log(name);
-            // var minSize = data.near_earth_objects[date][i].estimated_diameter.miles.estimated_diameter_min;
-            // var maxSize = data.near_earth_objects[date][i].estimated_diameter.miles.estimated_diameter_max;
-            // var sum = (minSize + maxSize);
-            // var avgSize = sum/2;
-            // var danger = data.near_earth_objects[date][i].is_potentially_hazardous_asteroid;
-            // var closeDate = data.near_earth_objects[date][i].close_approach_data[0].close_approach_date_full;
-            // var velocityObject = data.near_earth_objects[date][i].close_approach_data[0].relative_velocity.miles_per_hour
-            
-            // console.log(minSize);
-            
-            
-            
-            
         })
-        // .catch(function (err) {
-            //     console.log(err);
-            // });
-            // return;
-            
-        }
-   
-        var onlyPOD = function () {
-            tabIssEl.style.display = "none";
-            tabPodEl.style.display = "block";
-            tabNearestObject.style.display = "none";
-        }
-        
-        var onlyISS = function () {
-            tabPodEl.style.display = "none";
-            tabIssEl.style.display = "flex";
-            tabNearestObject.style.display = "none";
-        }
-        
-        var onlyNO = function () {
-            tabPodEl.style.display = "none";
-            tabIssEl.style.display = "none";
-            tabNearestObject.style.display = "block";
-            
-        }
-        
-        podLink.addEventListener('click', displayPOD);
-        issLink.addEventListener('click', issPage);
-        noLink.addEventListener('click', displayNearestObjects)
-        
-                    // var dateBtn = document.createElement('input');
-                    // dateBtn.classList.add('test', 'display-1');
-                    // dateBtn.setAttribute('type', 'date');
-                    // dateBtn.setAttribute('name', 'space-object');
-                    // dateBtn.setAttribute('value', '2022-03-10');
-                    // dateBtn.setAttribute('min', '1950-01-01');
-                    // dateBtn.setAttribute('min', '2022-12-31');
-                    // nearestObjectContainerEl.appendChild(dateBtn);
+}
+
+var onlyPOD = function () {
+    tabIssEl.style.display = "none";
+    tabPodEl.style.display = "block";
+    tabNearestObject.style.display = "none";
+}
+var onlyISS = function () {
+    tabPodEl.style.display = "none";
+    tabIssEl.style.display = "flex";
+    tabNearestObject.style.display = "none";
+}
+var onlyNO = function () {
+    tabPodEl.style.display = "none";
+    tabIssEl.style.display = "none";
+    tabNearestObject.style.display = "block";
+}
+
+podLink.addEventListener('click', displayPOD);
+issLink.addEventListener('click', issPage);
+noLink.addEventListener('click', displayNearestObjects)
