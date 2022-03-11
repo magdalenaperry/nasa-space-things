@@ -1,6 +1,21 @@
+.podtitleheadertest {
+    padding: 40px;
+    margin-top: -70px;
+}
+
+.poddescriptioncontainer{
+    padding: 60px;
+}
+
+#iss-container{
+display: flex;
+flex-wrap: wrap;
+justify-content: space-evenly;
+}
+
 #map {
-    height: 500px;
-    width: 500px;
+    height: 800px;
+    width: 800px;
     /* align-items: center; */
 }
 
