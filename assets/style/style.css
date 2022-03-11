@@ -23,3 +23,27 @@ p{
     font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+#pod-frame{
+    background-color: rgba(0, 0, 0, 0.372);
+    width:100%;
+}
+
+.fig-caption{
+    position:relative;
+    bottom: 195px;
+    height: 25%;
+    
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* .fig-caption:hover{
+    visibility: hidden;
+}
+
+.btn-close:hover{
+    display: none;
+} */
