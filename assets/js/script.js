@@ -1,13 +1,13 @@
 var containerEl = document.querySelector('container');
 
 var headerTitleEl = document.createElement('header');
-headerTitleEl.classList.add('display-1', 'text-center', 'py-5');
+headerTitleEl.classList.add('display-1', 'text-center', 'py-5',);
 containerEl.prepend(headerTitleEl);
 headerTitleEl.textContent = 'SPACE';
 
 // TAB CONTENTS 
 var tabContent = document.createElement('div');
-tabContent.setAttribute('id', 'myTabContent');
+tabContent.setAttribute('id', 'myTabContent',);
 containerEl.appendChild(tabContent);
 
 var tabPodEl = document.createElement('div');
@@ -97,7 +97,7 @@ var displayPOD = function (pod) {
 
             // text div for pod details
             var podDescriptionContEl = document.createElement('div');
-            podDescriptionContEl.classList.add('poddescriptioncontainer', 'test2');
+            podDescriptionContEl.classList.add('poddescriptioncontainer');
             podContainerEl.appendChild(podDescriptionContEl);
             podDescriptionContEl.textContent = podExplanation;
         })
@@ -208,8 +208,8 @@ var issPage = function () {
                 // insert stuff to populate ISS Data
                 // placeholder image for ISS 
                 var issImage = document.createElement("img");
-                issImage.classList.add('iss-map1', 'iss-map2', 'iss-map3', 'iss-map4');
-                issImage.src = "https://via.placeholder.com/500px"
+                issImage.classList.add('iss-pic');
+                issImage.src = "https://bgr.com/wp-content/uploads/2022/02/AdobeStock_320918695.jpeg?resize=800,800"
                 issImage.alt = "International Space Station"
                 issImage.title = "International Space Station"
                 tabIssEl.appendChild(issImage);
@@ -432,7 +432,7 @@ var displayNearestObjects = function (objects) {
         
         var onlyISS = function () {
             tabPodEl.style.display = "none";
-            tabIssEl.style.display = "block";
+            tabIssEl.style.display = "flex";
             tabNearestObject.style.display = "none";
         }
         
