@@ -1,4 +1,4 @@
-header{
+header {
     letter-spacing: 30px;
     background-color: rgba(0, 0, 0, 0.2);
     padding-top: 100px;
@@ -19,7 +19,7 @@ header{
     padding: 60px;
 }
 
-#iss-container{
+#iss-container {
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
@@ -31,20 +31,17 @@ justify-content: center;
     /* align-items: center; */
 }
 
-.time-zone-txt{
+.time-zone-txt {
     letter-spacing: 1px;
 }
 
-p{
+p {
     font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#pod-frame{
-    border: 10px rgba(0, 0, 0, 0.372);
-}
 
-.fig-caption{
+.fig-caption {
     position:relative;
     bottom: 195px;
     height: 25%;
@@ -55,10 +52,10 @@ p{
     padding-bottom: 10px;
 }
 
-.neo{
+.neo {
     width:100%;
 }
-.nasa-par{
+.nasa-par {
     font-size: 18px;
     line-height: 30px;
     background-color: rgba(0, 0, 0, 0.50);
@@ -66,7 +63,7 @@ p{
 }
 
 
-.nasa-date{
+.nasa-date {
     font-size: 36px;
     line-height: 30px;
     padding-top: 50px;
@@ -77,12 +74,12 @@ p{
     justify-content: center;
 }
 
-.card{
+.card {
     background-color: rgba(0, 0, 0, 0.2);
     
 }
 
-.footer-pad{
+.footer-pad {
     padding-bottom: 20px;
     background-color:rgba(0, 0, 0, 0.20);
     position:relative;

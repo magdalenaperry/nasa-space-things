@@ -53,7 +53,7 @@ var about = document.getElementById('about');
 
 // POD PAGE
 var displayPOD = function (pod) {
-    tabIssEl.style.display = "none";
+    tabIssEl.style.display = 'none';
     // onlyISS();
 
     podContainerEl.innerHTML = '';
@@ -80,12 +80,12 @@ var displayPOD = function (pod) {
 
             // POD appended to page
             var podTitleEl = document.createElement('h3')
-            podTitleEl.classList.add('pt-2', 'pb-4') // creating class for future
+            podTitleEl.classList.add('pt-2', 'pb-4')
             podContainerEl.appendChild(podTitleEl);
             podTitleEl.textContent = podTitle;
 
             var podEl = document.createElement('img');
-            podEl.classList.add('figure-img', 'img-fluid', 'rounded');
+            podEl.classList.add('img-fluid', 'rounded-3', 'border', 'border-5',);
             podEl.setAttribute('id','pod-frame')
             podEl.src = podSrc;
             podEl.alt = podTitle;
@@ -93,15 +93,11 @@ var displayPOD = function (pod) {
             podContainerEl.appendChild(podEl);
 
             // text div for pod details
-            var podDescriptionContEl = document.createElement('figcaption');
-            podDescriptionContEl.classList.add('img-fluid', 'fig-caption', 'mx-5', 'px-5');
+            var podDescriptionContEl = document.createElement('div');
+            podDescriptionContEl.classList.add('poddescriptioncontainer', 'test2');
             podContainerEl.appendChild(podDescriptionContEl);
             podDescriptionContEl.textContent = podExplanation;
 
-            var descCloseBtn = document.createElement('button');
-            descCloseBtn.classList.add('btn-close');
-            descCloseBtn.setAttribute('aria-label', 'close');
-            podDescriptionContEl.prepend(descCloseBtn);
         })
         .catch(function (err) {
             console.log(err);
@@ -204,7 +200,7 @@ var issPage = function () {
                 tabIssEl.innerHTML = '';
 
                 var issImage = document.createElement("img");
-                issImage.classList.add('iss-pic', 'col-3', 'mx-2', 'my-5');
+                issImage.classList.add('iss-pic', 'col-3', 'mx-2', 'my-5', 'rounded-3', 'border', 'border-5');
                 issImage.src = "https://bgr.com/wp-content/uploads/2022/02/AdobeStock_320918695.jpeg?resize=800,800"
                 issImage.alt = "International Space Station"
                 issImage.title = "International Space Station"
@@ -218,7 +214,7 @@ var issPage = function () {
 
                 // display ISS map on page:
                 var mapImage = document.createElement("div");
-                mapImage.classList.add('col-9', 'mx-2', 'my-5')
+                mapImage.classList.add('col-9', 'mx-2', 'my-5', 'rounded-3', 'border', 'border-5')
                 mapImage.setAttribute('id', 'map');
                 tabIssEl.appendChild(mapImage);
 
