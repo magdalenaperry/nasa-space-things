@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mars Weather | ISS location</title>
+    <title>Cosmic Dust | NASA POD | ISS location | Nearest Earth Object</title>
     <!-- bootstrap link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -22,48 +22,39 @@
 
 <body>
     <container>
-
-        <!-- <div id="map"></div> -->
-
-        <!-- <iframe width="800" height="800" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-    src="https://maps.google.com/maps?q=-39.615289964922,47.142021197707&hl=es&z=3&amp;output=embed">
-</iframe> -->
-
-        <ul class="nav nav-tabs nav-back fs-4 fw-light px-2">
-            <li class="nav-item" id="pod">
-                <a class="nav-link" data-bs-toggle="tab" href="#pod-container">Picture of Day</a>
-
-            </li>
-            <li class="nav-item" id="iss">
-                <a class="nav-link" data-bs-toggle="tab" href="#iss-container">International Space Station</a>
-            </li>
-            <li class="nav-item" id="no">
-                <a class="nav-link" data-bs-toggle="tab" href="#nearest-object">Nearest Object</a>
-            </li>
-            <!-- <li class="nav-item px-1" id="about">
-                <a class="nav-link" href="#about">About</a>
-            </li> -->
-            <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu" style="">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand">COSMIC DUST</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto fw-light">
+                        <li class="nav-item" id="pod">
+                            <a class="nav-link" href="#pod-container">NASA Picture of Day
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="iss">
+                            <a class="nav-link" href="#iss-container">International Space Station</a>
+                        </li>
+                        <li class="nav-item" id="no">
+                            <a class="nav-link" href="#nearest-object">Nearest Earth Objects</a>
+                        </li>
+                    </ul>
+                    <!-- link to javascript google search -->
+                    <form class="d-flex" id="form" role="search">
+                        <input id="query" name="q" class="form-control me-sm-2" type="search"
+                            placeholder="Search Google" aria-label="search through site content">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
-            </li> -->
-        </ul>
-
-
+            </div>
+        </nav>
     </container>
-
-
-    <footer class="footer-pad text-center text-white bottom-0">
-        <!-- Grid container -->
+    <footer class="footer-pad text-center text-white bottom-0 lh-lg fs-5 fw-light text-muted">
         <div class="container p-4">
-
             <section class="mb-4">
                 <!-- email -->
                 <a class="btn btn-outline-light btn-floating m-1" href="mailto:magperry16@gmail.com" role="button">
@@ -73,7 +64,6 @@
                             d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
                     </svg>
                 </a>
-
                 <!-- NASA API -->
                 <a class="btn btn-outline-light btn-floating m-1" href="https://api.nasa.gov/" role="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -92,29 +82,28 @@
                     </svg>
                 </a>
             </section>
-
-            <section>
+            <section class="lh-lg fs-5 text-uppercase fw-light">
                 <p>
-                    © Cosmic Dust | 2022
+                    cosmic dust | 2022
                 </p>
             </section>
             <div class="text-center" style="background-color: rgba(0, 0, 0, 0.5);">
-                <!-- © 2020 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a> -->
             </div>
     </footer>
-
-
-
-
-
-
-
-
+    <!-- bootstrap functionality -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
+    <!-- momentum functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
-    <!-- <script src="./assets/js/iss.js"></script> -->
 </body>
 
 </html>
