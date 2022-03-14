@@ -53,9 +53,7 @@ Users are encouraged to vist the website daily as the information is pulling rea
 Demo
 =================
 
-
-https://user-images.githubusercontent.com/97912154/158078154-93080964-a595-40e2-8bed-42f8cd1e4637.mp4
-
+https://user-images.githubusercontent.com/97912154/158255437-b2111c30-7494-4e17-bd53-8d8592415454.mp4
 
 
 API
