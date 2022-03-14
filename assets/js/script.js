@@ -83,15 +83,20 @@ var displayPOD = function (pod) {
             podTitleEl.textContent = podTitle;
             podContainerEl.appendChild(podTitleEl);
 
-            var podCopyrightEl = document.createElement('div');
-            podCopyrightEl.classList.add('fs-5', 'fw-lighter', 'lh-lg', 'text-info');
-            podCopyrightEl.textContent = 'photo by: ' + podCR;
-            podTitleEl.appendChild(podCopyrightEl);
-
             var podDescriptionContEl = document.createElement('div');
             podDescriptionContEl.classList.add('fs-5', 'fw-lighter', 'lh-lg', 'desc-par', 'text-center', 'col', 'align-self-center');
             podDescriptionContEl.textContent = podExplanation;
             podContainerEl.appendChild(podDescriptionContEl);
+
+           if(podCR) {   
+            var podCopyrightEl = document.createElement('div');
+            podCopyrightEl.classList.add('fs-5', 'fw-lighter', 'lh-lg', 'text-info');
+            podCopyrightEl.textContent = 'photo by: ' + podCR;
+            podTitleEl.appendChild(podCopyrightEl);
+           } else {
+           }    
+            
+            
         })
         .catch(function (err) {
             console.log(err);
@@ -108,7 +113,7 @@ var renderLocalStorage = function (timeStorage, map, whatever) {
         color: 'red'
     }).addTo(map);
     // zoom the map to the polyline
-    map.fitBounds(polyline.getBounds());
+    // map.fitBounds(polyline.getBounds());
 }
 //  --------------------------------------- ISS PAGE ----------------------------------------------------
 var issPage = function () {
@@ -207,7 +212,7 @@ var issPage = function () {
                 tabIssEl.appendChild(mapImage);
 
                 // set map 
-                var map = L.map('map').setView([lat, lon], 5);
+                var map = L.map('map').setView([lat, lon], 3);
 
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWJwZXJyeTE2IiwiYSI6ImNsMGw0NHc1MzBzbjQzaWw0eGJvOWlwenEifQ.Tldp3_qx74Vu3cnGOBgpcw', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -247,7 +252,6 @@ var displayNearestObjects = function (objects) {
     var nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP';
     var nearestObjectUrl = 'https://api.nasa.gov/neo/rest/v1/feed?start_date=' + date + '&end_date=' + date + '&api_key=' + nasaAPI;
 
-    console.log(nearestObjectUrl);
     fetch(nearestObjectUrl)
         .then(function (response) {
             return response.json();
