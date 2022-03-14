@@ -113,7 +113,7 @@ var renderLocalStorage = function (timeStorage, map, whatever) {
         color: 'red'
     }).addTo(map);
     // zoom the map to the polyline
-    map.fitBounds(polyline.getBounds());
+    // map.fitBounds(polyline.getBounds());
 }
 //  --------------------------------------- ISS PAGE ----------------------------------------------------
 var issPage = function () {
@@ -212,7 +212,7 @@ var issPage = function () {
                 tabIssEl.appendChild(mapImage);
 
                 // set map 
-                var map = L.map('map').setView([lat, lon], 5);
+                var map = L.map('map').setView([lat, lon], 3);
 
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWJwZXJyeTE2IiwiYSI6ImNsMGw0NHc1MzBzbjQzaWw0eGJvOWlwenEifQ.Tldp3_qx74Vu3cnGOBgpcw', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
