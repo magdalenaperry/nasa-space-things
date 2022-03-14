@@ -84,9 +84,9 @@ Libraries
 Authors
 =================
 
- - [Magdalena Perry](contact)
+ - Magdalena Perry: magperry16@gmail.com
 
- - [Rocio Galvan](www.linkedin.com/in/rocio-galvan)
+ - [Rocio Galvan](https://www.linkedin.com/in/rocio-galvan/)
 
  License
 =================
