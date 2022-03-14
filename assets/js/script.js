@@ -83,15 +83,20 @@ var displayPOD = function (pod) {
             podTitleEl.textContent = podTitle;
             podContainerEl.appendChild(podTitleEl);
 
-            var podCopyrightEl = document.createElement('div');
-            podCopyrightEl.classList.add('fs-5', 'fw-lighter', 'lh-lg', 'text-info');
-            podCopyrightEl.textContent = 'photo by: ' + podCR;
-            podTitleEl.appendChild(podCopyrightEl);
-
             var podDescriptionContEl = document.createElement('div');
             podDescriptionContEl.classList.add('fs-5', 'fw-lighter', 'lh-lg', 'desc-par', 'text-center', 'col', 'align-self-center');
             podDescriptionContEl.textContent = podExplanation;
             podContainerEl.appendChild(podDescriptionContEl);
+
+           if(podCR) {   
+            var podCopyrightEl = document.createElement('div');
+            podCopyrightEl.classList.add('fs-5', 'fw-lighter', 'lh-lg', 'text-info');
+            podCopyrightEl.textContent = 'photo by: ' + podCR;
+            podTitleEl.appendChild(podCopyrightEl);
+           } else {
+           }    
+            
+            
         })
         .catch(function (err) {
             console.log(err);
@@ -247,7 +252,6 @@ var displayNearestObjects = function (objects) {
     var nasaAPI = 'g47afBYRtnzgxSu2MaFL0cyL68LEZMo0QdzrgehP';
     var nearestObjectUrl = 'https://api.nasa.gov/neo/rest/v1/feed?start_date=' + date + '&end_date=' + date + '&api_key=' + nasaAPI;
 
-    console.log(nearestObjectUrl);
     fetch(nearestObjectUrl)
         .then(function (response) {
             return response.json();
