@@ -171,7 +171,7 @@ var issPage = function () {
                 // appended ISS elements to page
                 var issImage = document.createElement('img');
                 issImage.classList.add('iss-pic', 'col-12', 'nasa-par', 'iss-img', 'img-fluid');
-                issImage.src = 'https://www.sciencealert.com/images/2022-03/processed/ISSInSpaceLookingVeryPhotogenic_1024.jpg';
+                issImage.src = "./assets/images/iss-pic.jpg"
                 issImage.alt = 'International Space Station';
                 issImage.title = 'International Space Station';
                 tabIssEl.appendChild(issImage);
@@ -187,7 +187,7 @@ var issPage = function () {
                 var issPar = document.createElement('p');
                 issPar.classList.add('mx-5', 'lh-lg', 'fs-5', 'fw-light');
                 issBlockquote.appendChild(issPar);
-                issPar.textContent = 'The International Space Station is a large spacecraft in orbit around Earth. It serves as a home where crews of astronauts and cosmonauts live. Several nations worked together to build and use the space station. The space station is made of parts that were assembled in space by astronauts. It orbits Earth at a current altitude of ' + altitude + ' miles. It is currently traveling at ' + velocity + ' mph. This means it orbits Earth once approximately every 90 minutes.';
+                issPar.textContent = 'The International Space Station is a large spacecraft in orbit around Earth. It serves as a home where crews of astronauts and cosmonauts live. Several nations have worked together to build, maintain and use the space station since 1998. It will continue to support research, space exploration and future commercial service missions until 2030 when it will be de-orbited. It orbits Earth at a current altitude of ' + altitude + ' miles. It is currently traveling at ' + velocity + ' mph. This means it orbits Earth once approximately every 90 minutes.';
 
                 var issFigcap = document.createElement('figcaption');
                 issFigcap.classList.add('blockquote-footer', 'pb-2', 'mx-5', 'text-info', 'fs-5', 'fw-lighter');
